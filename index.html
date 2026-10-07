@@ -1,0 +1,1613 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Field Project | Jay Garade</title>
+
+<style>
+:root{
+    --bg:#07111f;
+    --panel:#0d1b2e;
+    --panel2:#10243b;
+    --text:#eef6ff;
+    --muted:#a9bad0;
+    --accent:#54b8ff;
+    --accent2:#8b7cff;
+    --line:rgba(255,255,255,.10);
+    --shadow:0 18px 55px rgba(0,0,0,.30);
+}
+
+*{
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Segoe UI,sans-serif;
+    background:
+    radial-gradient(circle at 10% 0%,rgba(84,184,255,.15),transparent 30%),
+    radial-gradient(circle at 90% 10%,rgba(139,124,255,.15),transparent 30%),
+    var(--bg);
+    color:var(--text);
+    line-height:1.7;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* TOP PROGRESS */
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    height:4px;
+    width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    z-index:1000;
+}
+
+/* HEADER */
+.topbar{
+    position:fixed;
+    top:4px;
+    left:0;
+    right:0;
+    height:68px;
+    background:rgba(7,17,31,.78);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    z-index:999;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+}
+
+.brand{
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.brand span{
+    color:var(--accent);
+}
+
+.menu-btn{
+    display:none;
+    background:transparent;
+    border:1px solid var(--line);
+    color:white;
+    border-radius:10px;
+    padding:8px 12px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* LAYOUT */
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    top:72px;
+    bottom:0;
+    width:280px;
+    padding:24px 16px;
+    border-right:1px solid var(--line);
+    background:rgba(6,16,29,.88);
+    overflow:auto;
+    z-index:998;
+}
+
+.sidebar h3{
+    font-size:12px;
+    text-transform:uppercase;
+    color:var(--muted);
+    letter-spacing:1.5px;
+    margin:8px 12px 12px;
+}
+
+.nav a{
+    display:block;
+    padding:10px 12px;
+    margin:3px 0;
+    border-radius:10px;
+    color:#c9d8e9;
+    font-size:14px;
+    transition:.2s;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:rgba(84,184,255,.12);
+    color:white;
+    transform:translateX(3px);
+}
+
+/* MAIN */
+.main{
+    margin-left:280px;
+    width:calc(100% - 280px);
+    padding:100px 6vw 70px;
+}
+
+/* HERO */
+.hero{
+    min-height:78vh;
+    display:flex;
+    align-items:center;
+}
+
+.hero-card{
+    max-width:1000px;
+    padding:55px;
+    border:1px solid var(--line);
+    border-radius:30px;
+    background:
+    linear-gradient(
+        135deg,
+        rgba(16,36,59,.94),
+        rgba(10,24,42,.82)
+    );
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-card:after{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    right:-120px;
+    top:-130px;
+    background:rgba(84,184,255,.12);
+}
+
+.kicker{
+    color:var(--accent);
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-size:13px;
+}
+
+h1{
+    font-size:clamp(38px,6vw,78px);
+    line-height:1.05;
+    margin:15px 0 22px;
+    letter-spacing:-2px;
+}
+
+.hero p{
+    font-size:19px;
+    color:var(--muted);
+    max-width:760px;
+}
+
+.meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:28px;
+}
+
+.badge{
+    padding:8px 13px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(255,255,255,.04);
+    font-size:13px;
+    color:#d8e7f7;
+}
+
+/* SECTIONS */
+section{
+    padding:75px 0 15px;
+    scroll-margin-top:90px;
+}
+
+.section-head{
+    display:flex;
+    align-items:end;
+    gap:18px;
+    margin-bottom:24px;
+}
+
+.num{
+    font-size:14px;
+    color:var(--accent);
+    font-weight:800;
+    min-width:40px;
+}
+
+h2{
+    font-size:clamp(28px,4vw,44px);
+    line-height:1.15;
+    margin:0;
+}
+
+h3{
+    color:#dceeff;
+}
+
+.subtitle{
+    color:var(--muted);
+    margin:8px 0 26px;
+}
+
+/* CARDS */
+.card{
+    background:
+    linear-gradient(
+        145deg,
+        rgba(16,36,59,.82),
+        rgba(10,25,43,.75)
+    );
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 12px 35px rgba(0,0,0,.16);
+}
+
+ul{
+    padding-left:22px;
+    margin:8px 0 0;
+}
+
+li{
+    margin:8px 0;
+    color:#d7e4f2;
+}
+
+li::marker{
+    color:var(--accent);
+}
+
+.quote{
+    font-size:21px;
+    font-weight:600;
+    color:#e9f5ff;
+    border-left:3px solid var(--accent);
+    padding-left:18px;
+}
+
+.placeholder{
+    border:1px dashed rgba(84,184,255,.5);
+    background:rgba(84,184,255,.05);
+    padding:20px;
+    border-radius:15px;
+    color:#cfe6fa;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:90px;
+    padding:45px 0;
+    border-top:1px solid var(--line);
+    text-align:center;
+    color:var(--muted);
+}
+
+/* BACK TO TOP */
+.back{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent2)
+    );
+    color:white;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    font-weight:800;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+        width:285px;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:92px 22px 50px;
+    }
+
+    .hero-card{
+        padding:32px 24px;
+    }
+
+    .topbar{
+        padding:0 18px;
+    }
+}
+
+/* PRINT */
+@media print{
+
+    .topbar,
+    .sidebar,
+    .back,
+    .progress{
+        display:none;
+    }
+
+    .main{
+        margin:0;
+        width:100%;
+        padding:20px;
+    }
+
+    section{
+        page-break-inside:avoid;
+    }
+
+    .hero{
+        min-height:auto;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+
+<!-- HEADER -->
+<header class="topbar">
+
+    <div class="brand">
+        FIELD<span>PROJECT</span>
+    </div>
+
+    <button
+        class="menu-btn"
+        onclick="document.querySelector('.sidebar').classList.toggle('open')">
+        ☰
+    </button>
+
+</header>
+
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <h3>Project Navigation</h3>
+
+    <nav class="nav">
+
+        <a href="#home">Home</a>
+
+        <a href="#s1">01 Introduction</a>
+        <a href="#s2">02 Meaning</a>
+        <a href="#s3">03 Objectives</a>
+        <a href="#s4">04 Role of Computers</a>
+        <a href="#s5">05 Digital Technology</a>
+        <a href="#s6">06 Common Services</a>
+        <a href="#s7">07 Hardware</a>
+        <a href="#s8">08 Software</a>
+        <a href="#s9">09 Internet & Networking</a>
+        <a href="#s10">10 Digital Payments</a>
+        <a href="#s11">11 Government Services</a>
+        <a href="#s12">12 Printing & Documents</a>
+        <a href="#s13">13 Data Security</a>
+        <a href="#s14">14 Advantages</a>
+        <a href="#s15">15 Problems & Challenges</a>
+        <a href="#s16">16 Survey Methodology</a>
+        <a href="#s17">17 Questionnaire</a>
+        <a href="#s18">18 Survey Results</a>
+        <a href="#s19">19 Findings</a>
+        <a href="#s20">20 Future Scope</a>
+        <a href="#s21">21 Project Website</a>
+        <a href="#s22">22 Conclusion</a>
+        <a href="#s23">23 References</a>
+        <a href="#thankyou">24 Thank You</a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+
+<!-- HOME -->
+<section id="home" class="hero">
+
+    <div class="hero-card">
+
+        <div class="kicker">
+            Field Project Presentation
+        </div>
+
+        <h1>
+            Role of Computers and Digital Technology
+            in Cyber Cafes and Online Service Centers
+        </h1>
+
+        <p>
+            A complete web version of the B.Sc. Semester III
+            Computer Science field project.
+        </p>
+
+        <div class="meta">
+
+            <span class="badge">
+                B.Sc. Semester III – Computer Science
+            </span>
+
+            <span class="badge">
+                Academic Year: 2026–27
+            </span>
+
+            <span class="badge">
+                Name: Jay Garade
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- 01 -->
+<section id="s1">
+
+    <div class="section-head">
+        <div class="num">01</div>
+        <h2>Introduction</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>WHY COMPUTERS MATTER IN SERVICE CENTERS</h3>
+
+        <p class="quote">
+            Computers are the main working tools in cyber cafes
+            and online service centers.
+        </p>
+
+        <ul>
+            <li>
+                They help users access websites, prepare documents,
+                print, scan and submit online forms.
+            </li>
+
+            <li>
+                Digital technology makes public and private online
+                services faster and more accessible.
+            </li>
+
+            <li>
+                These centers are useful for people who need
+                assistance with digital tasks.
+            </li>
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 02 -->
+<section id="s2">
+
+    <div class="section-head">
+        <div class="num">02</div>
+        <h2>Meaning of Cyber Cafe & Online Service Center</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>BASIC CONCEPT</h3>
+
+        <p>
+            A cyber cafe provides computers, internet access
+            and related digital services to customers.
+        </p>
+
+        <ul>
+
+            <li>
+                An online service center helps people complete
+                online applications and digital documentation.
+            </li>
+
+            <li>
+                Modern centers combine computers, internet,
+                printers, scanners, biometric devices and
+                digital payment systems.
+            </li>
+
+            <li>
+                They act as a bridge between users and online services.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 03 -->
+<section id="s3">
+
+    <div class="section-head">
+        <div class="num">03</div>
+        <h2>Objectives of the Project</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>WHAT THE FIELD PROJECT STUDIES</h3>
+
+        <ul>
+
+            <li>
+                To understand the role of computers in cyber cafes
+                and online service centers.
+            </li>
+
+            <li>
+                To study the use of digital technology in daily
+                service operations.
+            </li>
+
+            <li>
+                To identify common hardware, software and
+                networking requirements.
+            </li>
+
+            <li>
+                To understand benefits, challenges and
+                data-security practices.
+            </li>
+
+            <li>
+                To observe how technology improves service delivery.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 04 -->
+<section id="s4">
+
+    <div class="section-head">
+        <div class="num">04</div>
+        <h2>Role of Computers</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>CORE FUNCTIONS</h3>
+
+        <ul>
+
+            <li>Online form filling and application submission</li>
+
+            <li>Document creation, editing and formatting</li>
+
+            <li>Printing, scanning and document workflows</li>
+
+            <li>Email, web browsing and file downloading/uploading</li>
+
+            <li>Data entry and record management</li>
+
+            <li>Support for government and other online services</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 05 -->
+<section id="s5">
+
+    <div class="section-head">
+        <div class="num">05</div>
+        <h2>Role of Digital Technology</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>BEYOND BASIC COMPUTER USE</h3>
+
+        <ul>
+
+            <li>
+                Cloud and web-based applications reduce dependence
+                on physical paperwork.
+            </li>
+
+            <li>
+                Digital payment systems make transactions convenient.
+            </li>
+
+            <li>
+                Online portals enable real-time submission and
+                status checking.
+            </li>
+
+            <li>
+                PDF tools, OCR and document utilities improve workflow.
+            </li>
+
+            <li>
+                Digital communication helps customers receive
+                updates and documents quickly.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 06 -->
+<section id="s6">
+
+    <div class="section-head">
+        <div class="num">06</div>
+        <h2>Common Services Provided</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>TYPICAL SERVICES</h3>
+
+        <ul>
+
+            <li>Online application and registration forms</li>
+
+            <li>Government portal assistance</li>
+
+            <li>Printing, scanning and document conversion</li>
+
+            <li>Passport-size photo preparation</li>
+
+            <li>Email, PDF and file-upload assistance</li>
+
+            <li>Ticket, bill and utility-service support</li>
+
+            <li>Digital payment and receipt generation</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 07 -->
+<section id="s7">
+
+    <div class="section-head">
+        <div class="num">07</div>
+        <h2>Hardware Used</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>IMPORTANT DEVICES</h3>
+
+        <ul>
+
+            <li>Desktop computers / laptops</li>
+
+            <li>Laser or inkjet printers</li>
+
+            <li>Flatbed or document scanners</li>
+
+            <li>
+                Webcam and biometric devices where required
+            </li>
+
+            <li>
+                Router, switch and network cables
+            </li>
+
+            <li>
+                UPS / power backup and storage devices
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 08 -->
+<section id="s8">
+
+    <div class="section-head">
+        <div class="num">08</div>
+        <h2>Software Used</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>COMMON SOFTWARE CATEGORIES</h3>
+
+        <ul>
+
+            <li>
+                Operating system such as Windows or Linux
+            </li>
+
+            <li>
+                Web browsers for online portals
+            </li>
+
+            <li>
+                Office software for documents and spreadsheets
+            </li>
+
+            <li>
+                PDF reader/editor and compression tools
+            </li>
+
+            <li>
+                Image editing tools for document/photo preparation
+            </li>
+
+            <li>
+                Antivirus and system-maintenance utilities
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 09 -->
+<section id="s9">
+
+    <div class="section-head">
+        <div class="num">09</div>
+        <h2>Internet & Networking</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>CONNECTING THE CENTER</h3>
+
+        <ul>
+
+            <li>
+                A stable internet connection is essential for
+                online services.
+            </li>
+
+            <li>
+                Router provides network connectivity; switches
+                can connect multiple computers.
+            </li>
+
+            <li>
+                LAN helps share printers and other resources
+                within the center.
+            </li>
+
+            <li>
+                Strong passwords and updated network devices
+                help reduce security risks.
+            </li>
+
+            <li>
+                Backup connectivity can reduce downtime during
+                important online work.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 10 -->
+<section id="s10">
+
+    <div class="section-head">
+        <div class="num">10</div>
+        <h2>Digital Payments</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>CASHLESS TRANSACTIONS</h3>
+
+        <ul>
+
+            <li>
+                UPI, QR payments and other digital methods can
+                simplify customer payments.
+            </li>
+
+            <li>
+                Digital receipts can make transaction records
+                easier to maintain.
+            </li>
+
+            <li>
+                Payment information should be handled carefully
+                and never exposed unnecessarily.
+            </li>
+
+            <li>
+                Users should verify the recipient and amount
+                before confirming a transaction.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 11 -->
+<section id="s11">
+
+    <div class="section-head">
+        <div class="num">11</div>
+        <h2>Online Government Services</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>TECHNOLOGY AND PUBLIC SERVICES</h3>
+
+        <ul>
+
+            <li>
+                Centers may assist users with online forms,
+                certificates, registrations and applications.
+            </li>
+
+            <li>
+                They can help users upload documents and
+                understand portal steps.
+            </li>
+
+            <li>
+                Users should verify official websites and
+                required documents before submission.
+            </li>
+
+            <li>
+                Sensitive information should be entered only
+                on trusted portals.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 12 -->
+<section id="s12">
+
+    <div class="section-head">
+        <div class="num">12</div>
+        <h2>Printing, Scanning & Documents</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>DOCUMENT WORKFLOW</h3>
+
+        <ul>
+
+            <li>
+                Scan paper documents into PDF or image formats.
+            </li>
+
+            <li>
+                Resize, crop or format documents according
+                to portal requirements.
+            </li>
+
+            <li>
+                Print applications, receipts, forms and
+                supporting documents.
+            </li>
+
+            <li>
+                Keep customer files only as long as necessary
+                and remove unnecessary copies.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 13 -->
+<section id="s13">
+
+    <div class="section-head">
+        <div class="num">13</div>
+        <h2>Data Security & Privacy</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>RESPONSIBLE DIGITAL SERVICE</h3>
+
+        <ul>
+
+            <li>Use strong passwords and screen locks.</li>
+
+            <li>
+                Keep operating systems, browsers and security
+                software updated.
+            </li>
+
+            <li>
+                Do not share OTPs, passwords or confidential information.
+            </li>
+
+            <li>
+                Avoid saving customer documents permanently
+                without a valid reason.
+            </li>
+
+            <li>
+                Use trusted websites and secure connections
+                for sensitive work.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 14 -->
+<section id="s14">
+
+    <div class="section-head">
+        <div class="num">14</div>
+        <h2>Advantages</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>BENEFITS OF TECHNOLOGY</h3>
+
+        <ul>
+
+            <li>Faster service delivery</li>
+
+            <li>Better document accuracy</li>
+
+            <li>Easy access to online services</li>
+
+            <li>Reduced paperwork</li>
+
+            <li>Convenient digital payments</li>
+
+            <li>
+                Improved communication and record handling
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 15 -->
+<section id="s15">
+
+    <div class="section-head">
+        <div class="num">15</div>
+        <h2>Problems & Challenges</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>PRACTICAL LIMITATIONS</h3>
+
+        <ul>
+
+            <li>
+                Internet or power failure can stop online work.
+            </li>
+
+            <li>
+                Hardware faults and printer/scanner problems
+                cause delays.
+            </li>
+
+            <li>
+                Cyber threats such as phishing can put users at risk.
+            </li>
+
+            <li>
+                Some customers may have limited digital literacy.
+            </li>
+
+            <li>
+                Privacy becomes important when handling identity
+                and financial documents.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 16 -->
+<section id="s16">
+
+    <div class="section-head">
+        <div class="num">16</div>
+        <h2>Field Survey Methodology</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>HOW THE PROJECT CAN BE STUDIED</h3>
+
+        <ul>
+
+            <li>
+                Visit one or more local cyber cafes /
+                online service centers.
+            </li>
+
+            <li>
+                Observe hardware, software, internet and
+                service workflow.
+            </li>
+
+            <li>
+                Ask staff about common services and
+                technology-related problems.
+            </li>
+
+            <li>
+                Use a short questionnaire for service users.
+            </li>
+
+            <li>
+                Record findings without collecting
+                unnecessary personal information.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 17 -->
+<section id="s17">
+
+    <div class="section-head">
+        <div class="num">17</div>
+        <h2>Questionnaire</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>SUGGESTED FIELD-SURVEY QUESTIONS</h3>
+
+        <ul>
+
+            <li>
+                Which services do you use most often?
+            </li>
+
+            <li>
+                How often do you visit an online service center?
+            </li>
+
+            <li>
+                Which device/service is most important for your work?
+            </li>
+
+            <li>
+                Do you face internet or technical problems?
+            </li>
+
+            <li>
+                Are you aware of basic data-security practices?
+            </li>
+
+            <li>
+                What improvement would make the service
+                more convenient?
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 18 -->
+<section id="s18">
+
+    <div class="section-head">
+        <div class="num">18</div>
+        <h2>Survey Results & Analysis</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>USE ACTUAL FIELD DATA</h3>
+
+        <div class="placeholder">
+            Illustrative Placeholder —
+            Replace with Actual Survey Data.
+        </div>
+
+        <ul>
+
+            <li>
+                Insert your collected survey counts here.
+            </li>
+
+            <li>
+                Recommended charts: most-used services,
+                visit frequency, common problems and
+                security awareness.
+            </li>
+
+            <li>
+                Do not present sample numbers as real survey findings.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 19 -->
+<section id="s19">
+
+    <div class="section-head">
+        <div class="num">19</div>
+        <h2>Findings</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>KEY OBSERVATIONS TO RECORD</h3>
+
+        <ul>
+
+            <li>
+                Computers and internet connectivity are central
+                to service-center operations.
+            </li>
+
+            <li>
+                Printing, scanning and online-form assistance
+                remain important workflows.
+            </li>
+
+            <li>
+                Reliable hardware, internet and power backup
+                affect service continuity.
+            </li>
+
+            <li>
+                Privacy and secure handling of customer
+                documents are essential.
+            </li>
+
+            <li>
+                Digital literacy can improve the quality and
+                speed of service use.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 20 -->
+<section id="s20">
+
+    <div class="section-head">
+        <div class="num">20</div>
+        <h2>Future Scope</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>HOW SERVICE CENTERS CAN IMPROVE</h3>
+
+        <ul>
+
+            <li>
+                Cloud-based document workflows and secure storage
+            </li>
+
+            <li>
+                Better queue and token-management systems
+            </li>
+
+            <li>
+                Automated receipts and service tracking
+            </li>
+
+            <li>
+                Improved backup internet and power systems
+            </li>
+
+            <li>
+                Regular cybersecurity and privacy awareness training
+            </li>
+
+            <li>
+                More accessible services for users with
+                limited digital skills
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 21 -->
+<section id="s21">
+
+    <div class="section-head">
+        <div class="num">21</div>
+        <h2>Project Website</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>DIGITAL PRESENTATION OF THE FIELD PROJECT</h3>
+
+        <ul>
+
+            <li>
+                The project website can present the topic,
+                objectives, services, hardware/software,
+                survey questionnaire and findings.
+            </li>
+
+            <li>
+                Interactive survey forms can collect responses
+                for project analysis.
+            </li>
+
+            <li>
+                A responsive design allows the project to be
+                viewed on computers and mobile devices.
+            </li>
+
+        </ul>
+
+        <p class="placeholder">
+            Website URL: ________________________________
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- 22 -->
+<section id="s22">
+
+    <div class="section-head">
+        <div class="num">22</div>
+        <h2>Conclusion</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>SUMMARY</h3>
+
+        <p>
+            Computers and digital technology have become
+            essential tools in cyber cafes and online service centers.
+        </p>
+
+        <ul>
+
+            <li>
+                They simplify document work, internet access,
+                online applications and digital transactions.
+            </li>
+
+            <li>
+                Technology improves speed and convenience,
+                but privacy, security and reliability must
+                be maintained.
+            </li>
+
+            <li>
+                The field project connects classroom
+                computer-science concepts with a real-world
+                service environment.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- 23 -->
+<section id="s23">
+
+    <div class="section-head">
+        <div class="num">23</div>
+        <h2>References</h2>
+    </div>
+
+    <div class="card">
+
+        <h3>SUGGESTED SOURCES</h3>
+
+        <ul>
+
+            <li>
+                Official government service portals and
+                their help pages
+            </li>
+
+            <li>
+                Microsoft / operating-system documentation
+            </li>
+
+            <li>
+                Networking and cybersecurity learning resources
+            </li>
+
+            <li>
+                Field observations and questionnaire responses
+            </li>
+
+            <li>
+                Project website developed for the field study
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- THANK YOU -->
+<section id="thankyou">
+
+    <div class="section-head">
+        <div class="num">24</div>
+        <h2>Thank You</h2>
+    </div>
+
+    <div
+        class="card"
+        style="text-align:center;padding:55px 25px"
+    >
+
+        <h2>QUESTIONS & DISCUSSION</h2>
+
+        <p style="color:var(--muted)">
+            Thank you for viewing the field project presentation.
+        </p>
+
+        <p>
+            <strong>
+                Jay Garade • B.Sc. Semester III • Computer Science
+            </strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div>
+        Role of Computers and Digital Technology in Cyber Cafes
+        and Online Service Centers
+    </div>
+
+    <div>
+        Field Project • B.Sc. Semester III – Computer Science
+        • Academic Year 2026–27
+    </div>
+
+</footer>
+
+</main>
+
+
+<!-- BACK TO TOP -->
+<a
+    class="back"
+    href="#home"
+    aria-label="Back to top">
+    ↑
+</a>
+
+
+
+<script>
+
+/* SCROLL PROGRESS */
+const progress = document.getElementById("progress");
+
+window.addEventListener("scroll", () => {
+
+    const height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    const percentage =
+        height > 0
+        ? (window.scrollY / height) * 100
+        : 0;
+
+    progress.style.width = percentage + "%";
+
+});
+
+
+/* ACTIVE NAVIGATION */
+const links =
+    [...document.querySelectorAll(".nav a")];
+
+const sections =
+    links
+    .map(link =>
+        document.querySelector(
+            link.getAttribute("href")
+        )
+    )
+    .filter(Boolean);
+
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    links.forEach(link => {
+
+                        link.classList.toggle(
+                            "active",
+                            link.getAttribute("href")
+                            === "#" + entry.target.id
+                        );
+
+                    });
+
+                }
+
+            });
+
+        },
+        {
+            rootMargin:"-25% 0px -65% 0px"
+        }
+    );
+
+
+sections.forEach(section =>
+    observer.observe(section)
+);
+
+
+/* CLOSE MOBILE MENU */
+links.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        document
+        .querySelector(".sidebar")
+        .classList.remove("open");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
+```
